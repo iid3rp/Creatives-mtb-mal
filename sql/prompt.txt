@@ -1,0 +1,403 @@
+mtbmaldb.php
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
+// Create database
+$sqldb = "CREATE DATABASE mtbmaldb";
+if ($conn->query($sqldb) === TRUE)
+    echo "Database created successfully.";
+else
+    echo "Error creating database: " . $conn->error;
+
+// Close the database connection
+$conn->close();
+?>
+
+mtbtables.php
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "mtbmaldb";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
+// sql to create SCHOOL table
+$sqlschool = "CREATE TABLE IF NOT EXISTS school (
+    schoolRefNo INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    schoolName TINYTEXT NOT NULL,
+    shortName VARCHAR(155) NOT NULL,
+    schoolIdNo INT(6) UNSIGNED NOT NULL UNIQUE,
+    emailAddress VARCHAR(50) NOT NULL UNIQUE,
+    schoolType ENUM ('Public Integrated School', 'Private Integrated School', 'Private Elementary School', 'Public Elementary School'),
+    contactNo VARCHAR(12) NOT NULL UNIQUE,
+    locAddress VARCHAR(70) NOT NULL,
+    region VARCHAR(30) NOT NULL,
+    adminUserName VARCHAR(15) NOT NULL UNIQUE,
+    regDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+
+if ($conn->query($sqlschool) === TRUE)
+    echo "Table for Schools created successfully";
+else
+    echo "Error creating table: " . $conn->error;
+
+
+// sql to create MTB USERS table <accRefNo to be shown after complete registration>
+$sqlusers = "CREATE TABLE IF NOT EXISTS mtbmalusers (
+    accRefNo INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    schoolRefNo INT(10) UNSIGNED NOT NULL,
+    firstName VARCHAR(30) NOT NULL,
+    lastName VARCHAR(30) NOT NULL,
+    dob DATE NOT NULL,
+    emailAddress VARCHAR(50) NOT NULL UNIQUE,
+    contactNo VARCHAR(12) NOT NULL UNIQUE,
+    username VARCHAR(15) NOT NULL UNIQUE,
+    password VARCHAR(30) NOT NULL,
+    accCreator INT(10) UNSIGNED NOT NULL,
+    accType ENUM ('School Administrator', 'Educator', 'Student'),
+    regDateTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (schoolRefNo) REFERENCES school(schoolRefNo) ON DELETE CASCADE
+)";
+
+if ($conn->query($sqlusers) === TRUE)
+    echo "<br>" . "Table for MTB-MAL Users created successfully.";
+else
+    echo "Error creating table: " . $conn->error;
+
+
+// sql to create SCHOOL ADMINISTRATOR table
+$sqladmin = "CREATE TABLE IF NOT EXISTS schooladministrator (
+    adminId INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    accRefNo INT(10) UNSIGNED NOT NULL,
+    schoolIdNo INT(6) UNSIGNED NOT NULL,
+    fullName VARCHAR(70) NOT NULL,
+    FOREIGN KEY (accRefNo) REFERENCES mtbmalusers(accRefNo) ON DELETE RESTRICT,
+    FOREIGN KEY (schoolIdNo) REFERENCES school(schoolIdNo) ON DELETE CASCADE
+)";
+
+if ($conn->query($sqladmin) === TRUE)
+    echo "<br>" . "Table School Administrator created successfully";
+else
+    echo "Error creating table: " . $conn->error;
+
+
+// sql to create EDUCATOR table
+$sqleducator = "CREATE TABLE IF NOT EXISTS educator (
+    educatorId INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    accRefNo INT(10) UNSIGNED NOT NULL,
+    schoolIdNo INT(6) UNSIGNED NOT NULL,
+    fullName VARCHAR(70) NOT NULL,
+    FOREIGN KEY (accRefNo) REFERENCES mtbmalusers(accRefNo) ON DELETE RESTRICT,
+    FOREIGN KEY (schoolIdNo) REFERENCES school(schoolIdNo) ON DELETE CASCADE
+)";
+
+if ($conn->query($sqleducator) === TRUE)
+    echo "<br>" . "Table for Educators created successfully.";
+else
+    echo "Error creating table: " . $conn->error;
+
+
+// sql to create STUDENT table
+$sqlstudent = "CREATE TABLE IF NOT EXISTS student (
+    studentId INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    accRefNo INT(10) UNSIGNED NOT NULL,
+    schoolIdNo INT(6) UNSIGNED NOT NULL,
+    fullName VARCHAR(70) NOT NULL,
+    parentGuardianName VARCHAR(70) NOT NULL,
+    pgRStoStudent ENUM ('Father', 'Mother', 'Guardian', 'Sibling', 'Close Relative'),
+    pgDOB DATE,
+    pgMaritalStatus VARCHAR(15) NOT NULL,
+    pgEmailAdd VARCHAR(30) NOT NULL,
+    pgContactNo VARCHAR(12) NOT NULL,
+    FOREIGN KEY (accRefNo) REFERENCES mtbmalusers(accRefNo) ON DELETE RESTRICT,
+    FOREIGN KEY (schoolIdNo) REFERENCES school(schoolIdNo) ON DELETE CASCADE
+)";
+
+if ($conn->query($sqlstudent) === TRUE)
+    echo "<br>" . "Table for Student created successfully.";
+else
+    echo "Error creating table: " . $conn->error;
+
+
+// sql to create SUBJECT table
+$sqlsubject = "CREATE TABLE IF NOT EXISTS subject (
+    subjectRefNo INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    subjTitle VARCHAR(155) NOT NULL,
+    subjDescription TEXT NOT NULL,
+    mtLanguage VARCHAR(30) NOT NULL,
+    adminCreator INT(6) UNSIGNED NOT NULL,
+    assignedEducator INT(6) UNSIGNED NULL,
+    schoolIdNo INT(6) UNSIGNED NOT NULL,
+    FOREIGN KEY (adminCreator) REFERENCES schooladministrator(adminId) ON DELETE RESTRICT,
+    FOREIGN KEY (assignedEducator) REFERENCES educator(educatorId) ON DELETE SET NULL,
+    FOREIGN KEY (schoolIdNo) REFERENCES school(schoolIdNo) ON DELETE CASCADE
+)";
+
+if ($conn->query($sqlsubject) === TRUE)
+    echo "<br>" . "Table for Subject created successfully.";
+else
+    echo "Error creating table: " . $conn->error;
+
+// Close the database connection
+$conn->close();
+?>
+
+add_school_form.php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New School</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="email"], input[type="number"], input[type="tel"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .message { padding: 10px; margin-bottom:15px; border-radius: 4px;}
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;}
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;}
+    </style>
+</head>
+<body>
+
+    <h2>Add New School</h2>
+
+    <?php
+    // Display success or error messages if redirected back with them
+    if (isset($_GET['status'])) {
+        if ($_GET['status'] == 'success') {
+            echo '<p class="message success">School added successfully!</p>';
+        } elseif ($_GET['status'] == 'error') {
+            echo '<p class="message error">Error adding school: ' . htmlspecialchars($_GET['message'] ?? 'Unknown error') . '</p>';
+        }
+    }
+    ?>
+
+    <form action="process_add_school.php" method="POST">
+        <div class="form-group">
+            <label for="schoolName">School Name:</label>
+            <input type="text" id="schoolName" name="schoolName" required>
+        </div>
+
+        <div class="form-group">
+            <label for="shortName">Short Name:</label>
+            <input type="text" id="shortName" name="shortName" required maxlength="155">
+        </div>
+
+        <div class="form-group">
+            <label for="schoolIdNo">School ID No (6 digits):</label>
+            <input type="number" id="schoolIdNo" name="schoolIdNo" required min="100000" max="999999">
+        </div>
+
+        <div class="form-group">
+            <label for="emailAddress">Email Address:</label>
+            <input type="email" id="emailAddress" name="emailAddress" required maxlength="50">
+        </div>
+
+        <div class="form-group">
+            <label for="schoolType">School Type:</label>
+            <select id="schoolType" name="schoolType" required>
+                <option value="">-- Select Type --</option>
+                <option value="Public Integrated School">Public Integrated School</option>
+                <option value="Private Integrated School">Private Integrated School</option>
+                <option value="Private Elementary School">Private Elementary School</option>
+                <option value="Public Elementary School">Public Elementary School</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="contactNo">Contact No (e.g., 09123456789):</label>
+            <input type="tel" id="contactNo" name="contactNo" required maxlength="12" pattern="[0-9]{11,12}">
+        </div>
+
+        <div class="form-group">
+            <label for="locAddress">Location Address:</label>
+            <textarea id="locAddress" name="locAddress" rows="3" required maxlength="70"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="region">Region:</label>
+            <input type="text" id="region" name="region" required maxlength="30">
+        </div>
+
+        <div class="form-group">
+            <label for="adminUserName">Administrator Username:</label>
+            <input type="text" id="adminUserName" name="adminUserName" required maxlength="15">
+        </div>
+
+        <input type="submit" value="Add School">
+    </form>
+
+</body>
+</html>
+
+process_add_school.php
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";       // Your MySQL password, if any
+$dbname = "mtbmaldb"; // The database you created
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    // In a real application, log this error and show a user-friendly message
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// --- Form Submission Handling ---
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // 1. Retrieve data from POST superglobal
+    //    Apply basic sanitization (trim whitespace)
+    $schoolName    = trim($_POST['schoolName']);
+    $shortName     = trim($_POST['shortName']);
+    $schoolIdNo    = trim($_POST['schoolIdNo']);
+    $emailAddress  = trim($_POST['emailAddress']);
+    $schoolType    = trim($_POST['schoolType']);
+    $contactNo     = trim($_POST['contactNo']);
+    $locAddress    = trim($_POST['locAddress']);
+    $region        = trim($_POST['region']);
+    $adminUserName = trim($_POST['adminUserName']);
+
+    // 2. Validate Data (Server-Side Validation is CRITICAL)
+    $errors = [];
+    if (empty($schoolName)) {
+        $errors[] = "School Name is required.";
+    }
+    if (empty($shortName)) {
+        $errors[] = "Short Name is required.";
+    }
+    if (empty($schoolIdNo) || !filter_var($schoolIdNo, FILTER_VALIDATE_INT) || strlen($schoolIdNo) != 6) {
+        $errors[] = "School ID No must be a 6-digit number.";
+    }
+    if (empty($emailAddress) || !filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "A valid Email Address is required.";
+    }
+    $validSchoolTypes = ['Public Integrated School', 'Private Integrated School', 'Private Elementary School', 'Public Elementary School'];
+    if (empty($schoolType) || !in_array($schoolType, $validSchoolTypes)) {
+        $errors[] = "Invalid School Type selected.";
+    }
+    if (empty($contactNo) || !preg_match('/^[0-9]{11,12}$/', $contactNo)) {
+        $errors[] = "Contact No must be 11 or 12 digits.";
+    }
+    if (empty($locAddress)) {
+        $errors[] = "Location Address is required.";
+    }
+    if (empty($region)) {
+        $errors[] = "Region is required.";
+    }
+    if (empty($adminUserName)) {
+        $errors[] = "Administrator Username is required.";
+    }
+    // You should also check for uniqueness for fields like emailAddress, schoolIdNo, adminUserName
+    // by querying the database before attempting to insert. This is more complex.
+    // For now, we'll rely on DB constraints, but ideally, you'd check first.
+
+    if (!empty($errors)) {
+        // If there are errors, redirect back to the form with error messages
+        // (or display them on this page)
+        $errorString = implode("<br>", $errors);
+        header("Location: add_school_form.php?status=error&message=" . urlencode($errorString));
+        exit();
+    }
+
+    // 3. Prepare SQL Statement (Using Prepared Statements to prevent SQL Injection)
+    $sql = "INSERT INTO school (schoolName, shortName, schoolIdNo, emailAddress, schoolType, contactNo, locAddress, region, adminUserName)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt === false) {
+        // Handle prepare error
+        // In production, log $conn->error and show a generic message
+        header("Location: add_school_form.php?status=error&message=" . urlencode("Database prepare error: " . $conn->error));
+        exit();
+    }
+
+    // 4. Bind parameters
+    // 'ssissssss' defines the types of the parameters:
+    // s - string
+    // i - integer
+    // d - double
+    // b - blob
+    $stmt->bind_param("ssissssss",
+        $schoolName,
+        $shortName,
+        $schoolIdNo,    // This will be cast to int by bind_param if it's a numeric string
+        $emailAddress,
+        $schoolType,
+        $contactNo,
+        $locAddress,
+        $region,
+        $adminUserName
+    );
+
+    // 5. Execute the statement
+    if ($stmt->execute()) {
+        // Success! Redirect to the form page with a success message
+        header("Location: add_school_form.php?status=success");
+        exit();
+    } else {
+        // Error during execution
+        // Check for specific errors, e.g., duplicate entry
+        $errorMessage = "Error inserting record: " . $stmt->error;
+        if ($conn->errno == 1062) { // Error code for duplicate entry
+            $errorMessage = "Error: Duplicate entry. School ID, Email, Contact No, or Admin Username might already exist.";
+        }
+        header("Location: add_school_form.php?status=error&message=" . urlencode($errorMessage));
+        exit();
+    }
+
+    // 6. Close statement
+    $stmt->close();
+
+} else {
+    // Not a POST request, redirect to form or show an error
+    header("Location: add_school_form.php");
+    exit();
+}
+
+// 7. Close connection
+$conn->close();
+?>
