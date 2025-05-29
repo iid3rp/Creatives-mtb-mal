@@ -21,8 +21,14 @@
         <img src="images/MTB-MAL_logo_side.png" alt="MTB-MAL Logo" />
     </div>
     <nav class="nav-links">
-        <a href="/mtbmalsysfinal/educators/dashboard/dashboard_educators.php"><span class="icon">🏠</span> Dashboard</a>
-        <a href="/mtbmalsysfinal/educators/view-subjects/educator_subject-view.php"><span class="icon">📚</span> View Subjects</a>
+        <a href="/mtbmalsysfinal/educators/dashboard/dashboard_educators.php"><span class="icon">
+          🏠 </span> Dashboard </a>
+        <a href="/mtbmalsysfinal/educators/view-subjects/educator_subject-view.php"><span class="icon">
+          📚 </span> View Subjects </a>
+        <a href="/mtbmalsysfinal/educators/view-subjects/educator_manage-student-records.php"><span class="icon">
+          👤 </span> Manage Student Records </a>
+        <a href="/mtbmalsysfinal/educators/manage-subjects/subject-learning-materials/upload_template.php"><span class="icon">
+          📤 </span> Upload New Subject Materials </a>
     </nav>
 </div>
 

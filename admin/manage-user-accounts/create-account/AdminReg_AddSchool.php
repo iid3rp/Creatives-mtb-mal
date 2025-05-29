@@ -19,23 +19,6 @@ Thank you for understanding.
 </head>
 
 <body>
-
-<!-- Sidebar -->
-<div id="sidebar" class="sidebar">
-    <div class="logo2" onclick="toggleSidebar()">
-        <img src="images/MTB-MAL_logo_side.png" alt="MTB-MAL Logo" />
-    </div>
-    <nav class="nav-links">
-        <a href="/mtbmalsysfinal/admin/dashboard/dashboard_admin.php"><span class="icon">🏠</span> Dashboard</a>
-        <a href="/mtbmalsysfinal/admin/create-subject/Admin_AddSubject.php"><span class="icon">✏️</span> Create a Subject</a>
-        <a href="/mtbmalsysfinal/admin/manage-user-accounts/main-manage/Admin_ManageUsers.php"><span class="icon">👥</span> Manage User Accounts</a>
-        <a href="/mtbmalsysfinal/admin/view-subjects/admin_subject-view.php"><span class="icon">📚</span> View Subjects</a>
-    </nav>
-</div>
-
-<!-- Overlay -->
-<div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
-
 <div class="main-content">
 
     <!-- Top Bar -->
@@ -195,17 +178,6 @@ Thank you for understanding.
             const select = document.getElementById('curriculumSelect');
             const input = document.getElementById('curriculumInput');
             input.value = select.value;
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebar-overlay');
-            const logoImg = document.querySelector('.logo2 img');
-
-            sidebar.classList.toggle('visible');
-            overlay.classList.toggle('visible');
-
-            logoImg.src = 'images/MTB-MAL_logo_side.png';
         }
     </script>
 

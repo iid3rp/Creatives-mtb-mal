@@ -19,8 +19,14 @@
         <img src="images/MTB-MAL_logo_side.png" alt="MTB-MAL Logo" />
     </div>
     <nav class="nav-links">
-        <a href="/mtbmalsysfinal/educators/dashboard/dashboard_educators.php"><span class="icon">🏠</span> Dashboard</a>
-        <a href="/mtbmalsysfinal/educators/view-subjects/educator_subject-view.php"><span class="icon">📚</span> View Subjects</a>
+        <a href="/mtbmalsysfinal/educators/dashboard/dashboard_educators.php"><span class="icon">
+          🏠 </span> Dashboard </a>
+        <a href="/mtbmalsysfinal/educators/view-subjects/educator_subject-view.php"><span class="icon">
+          📚 </span> View Subjects </a>
+        <a href="/mtbmalsysfinal/educators/view-subjects/educator_manage-student-records.php"><span class="icon">
+          👤 </span> Manage Student Records </a>
+        <a href="/mtbmalsysfinal/educators/manage-subjects/subject-learning-materials/upload_template.php"><span class="icon">
+          📤 </span> Upload New Subject Materials </a>
     </nav>
 </div>
 
@@ -28,7 +34,7 @@
 <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <div class="main-content">
-        <!-- Top Bar -->
+    <!-- Top Bar -->
     <div class="topbar">
         <div class="left">
             <div class="logo-topbar" onclick="toggleSidebar()">
@@ -70,6 +76,7 @@
         </div>
     </div>
 
+  <!-- Container -->
   <div class="container">
       <div class="form-section">
         <div class="column">
@@ -106,8 +113,8 @@
                     <td>20</td>
                     <td>
                     <span class="action-icons">
-                      <span class="edit-icon" onclick="openModal('K1-Tagalog')">✏️</span>
-                      <img src="images/info.png" alt="Info Icon">
+                      <span class="edit-icon">✏️</span>
+                      <img src="images/info.png" alt="Info Icon" onclick="openModal('K1-Tagalog')">
                     </span>
                     </td>
                   </tr>
@@ -118,22 +125,27 @@
       </div>
     </div>
 
-<!-- K1-Tagalog Modal -->
+<!--=========================================== 1 =====================================================--->
+
+<!-- K1-Tagalog MENU Modal -->
 <div id="K1-Tagalog" class="modal">
   <div class="modal-content">
-    <h2>Manage Subject: K1-Tagalog</h2>
+    <h2>Manage Subject</h2>
     <hr>
     <button class="modal-btn" onclick="openInnerModal('K1TagalogInner')">Subject Learning Materials</button>
-    <a class="modal-btn" href="#">Manage Students Records</a>
-    <a class="modal-btn" href="#">Manage Enrollees</a>
+    <a class="modal-btn" href="/mtbmalsysfinal/educators/view-subjects/educator_manage-student-records.php?class=K1-Tagalog">Manage Students Records</a>
+    <a class="modal-btn" onclick="openInnerModal('Enrollees')">Manage Enrollees</a>
     <button class="modal-close" onclick="closeModal('K1-Tagalog')">Close</button>
   </div>
 </div>
 
-<!-- K1-Tagalog Inner Modal -->
+<!--=========================================== 2 =====================================================--->
+
+
+<!-- K1-Tagalog Learning Materials Modal -->
 <div id="K1TagalogInner" class="modal">
   <div class="modal-content2">
-  <h1>K1-Tagalog: Subject Learning Materials</h1>
+  <h1>Learning Materials</h1>
 
   <hr style="width: 70%; height: 2px; background-color: black; border: none; margin: 1rem auto; margin-bottom:20px;">
   <!-- Info Bar Table -->
@@ -258,134 +270,202 @@
   </div>
 </div>
 
-  <!-- Footer -->
-        <footer class="footer">
-            Mother Tongue-Based Multilingual Assessment and Learning System © 2025
-        </footer>
+<!--=========================================== 3 =====================================================--->
 
-  <!-- Validation Script -->
-<script>
-  function validateForm() {
-    const pw = document.getElementById('password').value;
-    const rePw = document.getElementById('rePassword').value;
-    if (pw !== rePw) {
-      document.getElementById('formError').innerText = "Passwords do not match.";
-      return false;
-    }
-    return true;
-  }
 
-  function toggleDropdown1() {
-    const arrow = document.getElementById('dropdown-arrow1');
-    const menu = document.getElementById('lang-dropdown-menu');
+<!-- === Enrollees Modal === -->
+<div id="Enrollees" class="modal">
 
-    arrow.classList.toggle('down');
-    arrow.classList.toggle('up');
-    menu.classList.toggle('hidden');
-  }
+  <div class="modal-content2">
+    <h1>Manage Enrollees</h1>
 
-  function toggleDropdown2() {
-    const menu = document.getElementById('profile-dropdown-menu');
-    menu.classList.toggle('hidden');
-  }
+    <hr style="width: 70%; height: 2px; background-color: black; border: none; margin: 1rem auto 20px;">
 
-  function setCurriculum() {
-    const select = document.getElementById('curriculumSelect');
-    const input = document.getElementById('curriculumInput');
-    input.value = select.value;
-  }
+    <!-- === Info Bar Table === -->
+    <table class="info-bar-table" style="position: relative; right:-0px">
+      <tr>
+        <th>Subject Reference Number</th>
+        <th>Subject Title</th>
+        <th>Grade Level and School Year</th>
+      </tr>
+      <tr>
+        <td>SB-251584520001</td>
+        <td>K1-Tagalog</td>
+        <td>Kinder 1 : 2025-2026</td>
+      </tr>
+    </table>
 
-  function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    const logoImg = document.querySelector('.logo2 img');
+    <hr style="height: 1px; background-color: black; border: none; margin: 1rem 0;">
 
-    sidebar.classList.toggle('visible');
-    overlay.classList.toggle('visible');
+    <!-- === Enrollment Form === -->
+    <form id="enroll-student-form">
+      
+      <!-- Learner Reference Number (LRN) -->
+      <div class="form-group">
+        <label for="lrn">Learner Reference Number (LRN)</label>
+        <input type="text" id="lrn" name="lrn" placeholder="e.g. SB-251584520001" required>
+      </div>
 
-    logoImg.src = 'images/MTB-MAL_logo_side.png';
-  }
+      <!-- Student MTB-MAL Reference Number -->
+      <div class="form-group">
+        <label for="mtb-ref">Student MTB-MAL Reference Number</label>
+        <input type="text" id="mtb-ref" name="mtb_ref" placeholder="e.g. K1-Tagalog" required>
+      </div>
 
-  function filterTableRows(prefix) {
-    const rows = document.querySelectorAll('.account-table tbody tr');
-    rows.forEach(row => {
-      const refNumber = row.children[1].textContent.trim(); // Reference Number column
-      row.style.display = refNumber.startsWith(prefix) ? '' : 'none';
-    });
-  }
+      <!-- Student’s Full Name -->
+      <div class="form-group">
+        <label for="student-name">Student's Full Name</label>
+        <input type="text" id="student-name" name="student_name" placeholder="e.g. John Doe" required>
+      </div>
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const buttons = document.querySelectorAll('.button-group .btn');
+      <!-- Parent/Guardian Email Address -->
+      <div class="form-group">
+        <label for="guardian-email">Parent/Guardian Email Address</label>
+        <input type="email" id="guardian-email" name="guardian_email" placeholder="e.g. parent@example.com" required>
+      </div>
 
-    function setActiveButton(activeId) {
-      buttons.forEach(btn => {
-        btn.classList.toggle('selected', btn.id === activeId);
-      });
-    }
+<!-- Checkbox: I hereby confirm all details are correct -->
+<div class="form-group" style="display: flex; justify-content: center;">
+  <div style="display: flex; align-items: center; width: 100%; max-width: 500px; position: relative;">
+    <input type="checkbox" id="confirm-details" name="confirm_details" required style="margin-right: 10px;">
+    <label for="confirm-details" style="white-space: nowrap; font-weight: bold;">
+      I hereby confirm all the above details are correct.
+    </label>
+  </div>
+</div>
+      <!-- Submit Button -->
+      <div class="form-group">
+        <!-- Buttons container -->
+        <div class="modal-buttons-row">
+          <button class="modal-close2" onclick="closeModal('Enrollees')" style="position:relative; right:-80px;">Close</button>
+          <button type="submit" class="modal-btn2" style="width:500px; position:relative; right:-100px;">Enroll Student</button>
+        </div>
+      </div>
 
-    document.getElementById('btn-subject').addEventListener('click', () => {
-      setActiveButton('btn-subject');
-      filterTableRows('SB');
-    });
-  });
+    </form>
 
-function openModal(modalId) {
-  document.getElementById(modalId).style.display = "flex";
-}
+  </div> <!-- End .modal-content2 -->
+</div> <!-- End #Enrollees.modal -->
 
-function closeModal(modalId) {
-  document.getElementById(modalId).style.display = "none";
-}
+<!--=========================================== 4 =====================================================--->
 
-function openInnerModal(innerModalId) {
-  document.getElementById(innerModalId).style.display = "flex";
-}
+    <!-- Footer -->
+    <footer class="footer"> <!-- Footer container -->
+      Mother Tongue-Based Multilingual Assessment and Learning System © 2025
+    </footer>
 
-function setActiveButton(buttonId) {
-    document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('selected'));
-    document.getElementById(buttonId).classList.add('selected');
-  }
 
-  function renumberVisibleRows() {
-    const visibleRows = document.querySelectorAll('.learning-materials-table tbody tr');
-    let count = 1;
-    visibleRows.forEach(row => {
-      if (row.style.display !== 'none') {
-        row.children[0].textContent = count++;
-      }
-    });
-  }
+          <script>
+            // Toggle language dropdown visibility
+            function toggleDropdown1() {
+            const arrow = document.getElementById('dropdown-arrow1');
+            const menu = document.getElementById('lang-dropdown-menu');
+            arrow.classList.toggle('down');
+            arrow.classList.toggle('up');
+            menu.classList.toggle('hidden');
+            }
+            // Toggle profile dropdown visibility
+            function toggleDropdown2() {
+            const arrow = document.getElementById('dropdown-arrow2');
+            const menu = document.getElementById('profile-dropdown-menu');
+            arrow.classList.toggle('down');
+            arrow.classList.toggle('up');
+            menu.classList.toggle('hidden');
+            }
+            // Toggle sidebar and overlay visibility
+            function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const logoImg = document.querySelector('.logo2 img');
 
-  function filterTableRows(prefix) {
-    const rows = document.querySelectorAll('.learning-materials-table tbody tr');
+            sidebar.classList.toggle('visible');
+            overlay.classList.toggle('visible');
 
-    rows.forEach(row => {
-      const refNumber = row.children[1].textContent.trim();
-      row.style.display = refNumber.startsWith(prefix) ? '' : 'none';
-    });
+            // Reset logo image when sidebar is toggled
+            logoImg.src = 'images/MTB-MAL_logo_side.png';
+            }
+            // Function to open a modal by ID
+            function openModal(modalId) {
+              document.getElementById(modalId).style.display = "flex";
+            }
+            // Function to close a modal by ID
+            function closeModal(modalId) {
+              document.getElementById(modalId).style.display = "none";
+            }
+            // Function to open an inner modal by ID (nested modal)
+            function openInnerModal(innerModalId) {
+              document.getElementById(innerModalId).style.display = "flex";
+            }
+            // === Filter rows in .account-table based on prefix (e.g. "SB") ===
+            function filterTableRows(prefix) {
+              const rows = document.querySelectorAll('.account-table tbody tr');
+              rows.forEach(row => {
+                const refNumber = row.children[1].textContent.trim(); // Reference Number column
+                row.style.display = refNumber.startsWith(prefix) ? '' : 'none';
+              });
+            }
+            // === Set up button click behavior for .account-table ===
+            document.addEventListener('DOMContentLoaded', function () {
+              const buttons = document.querySelectorAll('.button-group .btn');
 
-    renumberVisibleRows();
-  }
+              // Toggle 'selected' class on clicked button
+              function setActiveButton(activeId) {
+                buttons.forEach(btn => {
+                  btn.classList.toggle('selected', btn.id === activeId);
+                });
+              }
+              // Filter .account-table rows starting with 'SB' when 'btn-subject' is clicked
+              document.getElementById('btn-subject').addEventListener('click', () => {
+                setActiveButton('btn-subject');
+                filterTableRows('SB');
+              });
+            });
+            // === Open modal with specified ID ===
+            function openInnerModal(innerModalId) {
+              document.getElementById(innerModalId).style.display = "flex";
+            }
+            // === Set active button by ID and apply 'selected' class ===
+            function setActiveButton(buttonId) {
+              document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('selected'));
+              document.getElementById(buttonId).classList.add('selected');
+            }
+            // === Renumber visible rows in .learning-materials-table ===
+            function renumberVisibleRows() {
+              const visibleRows = document.querySelectorAll('.learning-materials-table tbody tr');
+              let count = 1;
+              visibleRows.forEach(row => {
+                if (row.style.display !== 'none') {
+                  row.children[0].textContent = count++;
+                }
+              });
+            }
+            // === Filter .learning-materials-table rows based on prefix and renumber ===
+            function filterTableRows(prefix) {
+              const rows = document.querySelectorAll('.learning-materials-table tbody tr');
+              rows.forEach(row => {
+                const refNumber = row.children[1].textContent.trim();
+                row.style.display = refNumber.startsWith(prefix) ? '' : 'none';
+              });
+              renumberVisibleRows();
+            }
+            // === Button handlers for filtering .learning-materials-table ===
+            document.getElementById('btn-module').addEventListener('click', () => {
+              setActiveButton('btn-module');
+              filterTableRows('LM'); // Show only modules
+            });
 
-  document.getElementById('btn-module').addEventListener('click', () => {
-    setActiveButton('btn-module');
-    filterTableRows('LM');
-  });
+            document.getElementById('btn-assessment').addEventListener('click', () => {
+              setActiveButton('btn-assessment');
+              filterTableRows('LA'); // Show only assessments
+            });
 
-  document.getElementById('btn-assessment').addEventListener('click', () => {
-    setActiveButton('btn-assessment');
-    filterTableRows('LA');
-  });
-
-  document.getElementById('btn-both').addEventListener('click', () => {
-    setActiveButton('btn-both');
-    const rows = document.querySelectorAll('.learning-materials-table tbody tr');
-    rows.forEach(row => row.style.display = '');
-    renumberVisibleRows();
-  });
-  
-</script>
-
+            document.getElementById('btn-both').addEventListener('click', () => {
+              setActiveButton('btn-both');
+              const rows = document.querySelectorAll('.learning-materials-table tbody tr');
+              rows.forEach(row => row.style.display = ''); // Show all
+              renumberVisibleRows();
+            });
+          </script>
 
 </body>
 </html>

@@ -19,8 +19,14 @@
         <img src="images/MTB-MAL_logo_side.png" alt="MTB-MAL Logo" />
     </div>
     <nav class="nav-links">
-        <a href="/mtbmalsysfinal/educators/dashboard/dashboard_educators.php"><span class="icon">🏠</span> Dashboard</a>
-        <a href="/mtbmalsysfinal/educators/view-subjects/educator_subject-view.php"><span class="icon">📚</span> View Subjects</a>
+        <a href="/mtbmalsysfinal/educators/dashboard/dashboard_educators.php"><span class="icon">
+          🏠 </span> Dashboard </a>
+        <a href="/mtbmalsysfinal/educators/view-subjects/educator_subject-view.php"><span class="icon">
+          📚 </span> View Subjects </a>
+        <a href="/mtbmalsysfinal/educators/view-subjects/educator_manage-student-records.php"><span class="icon">
+          👤 </span> Manage Student Records </a>
+        <a href="/mtbmalsysfinal/educators/manage-subjects/subject-learning-materials/upload_template.php"><span class="icon">
+          📤 </span> Upload New Subject Materials </a>
     </nav>
 </div>
 
@@ -28,7 +34,7 @@
 <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <div class="main-content">
-        <!-- Top Bar -->
+    <!-- Top Bar -->
     <div class="topbar">
         <div class="left">
             <div class="logo-topbar" onclick="toggleSidebar()">
@@ -86,48 +92,61 @@
                 </div>
             </a>
 
+            <a href="/mtbmalsysfinal/educators/view-subjects/educator_manage-student-records.php" class="dashboard-card-link">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Manage Student Records</h2>
+                        <span class="icon">👤</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Access and update student enrollment and performance data.</strong></p>
+                        <p>View and manage student records, including enrollment info, academic performance, and class participation for each subject you handle.</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="/mtbmalsysfinal/educators/manage-subjects/subject-learning-materials/upload_template.php" class="dashboard-card-link">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2>Upload New Subject Materials</h2>
+                        <span class="icon">📤</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Upload and manage learning materials for your subject.</strong></p>
+                        <p>Easily submit lesson templates, activity sheets, or reference files that students can access and use in class or online.</p>
+                    </div>
+                </div>
+            </a>
+
         </div>
     </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            Mother Tongue-Based Multilingual Assessment and Learning System © 2025
-        </footer>
+<!--=========================================== 2 =====================================================--->
 
-  <!-- Dropdown and Options Script -->
-    <script>
+    <!-- Footer -->
+    <footer class="footer"> <!-- Footer container -->
+      Mother Tongue-Based Multilingual Assessment and Learning System © 2025
+    </footer>
 
-        function validateForm() {
-            const pw = document.getElementById('password').value;
-            const rePw = document.getElementById('rePassword').value;
-            if (pw !== rePw) {
-              document.getElementById('formError').innerText = "Passwords do not match.";
-              return false;
-            }
-            return true;
-        }
-
-        function toggleDropdown1() {
+        <script>
+            // Toggle language dropdown visibility
+            function toggleDropdown1() {
             const arrow = document.getElementById('dropdown-arrow1');
             const menu = document.getElementById('lang-dropdown-menu');
-
             arrow.classList.toggle('down');
             arrow.classList.toggle('up');
             menu.classList.toggle('hidden');
-        }
-
-        function toggleDropdown2() {
+            }
+            // Toggle profile dropdown visibility
+            function toggleDropdown2() {
+            const arrow = document.getElementById('dropdown-arrow2');
             const menu = document.getElementById('profile-dropdown-menu');
+            arrow.classList.toggle('down');
+            arrow.classList.toggle('up');
             menu.classList.toggle('hidden');
-        }
-
-        function setCurriculum() {
-            const select = document.getElementById('curriculumSelect');
-            const input = document.getElementById('curriculumInput');
-            input.value = select.value;
-        }
-
-        function toggleSidebar() {
+            }
+            // Toggle sidebar and overlay visibility
+            function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
             const logoImg = document.querySelector('.logo2 img');
@@ -135,9 +154,10 @@
             sidebar.classList.toggle('visible');
             overlay.classList.toggle('visible');
 
+            // Reset logo image when sidebar is toggled
             logoImg.src = 'images/MTB-MAL_logo_side.png';
-        }
-    </script>
+            }
+        </script>
 
 </body>
 </html>
