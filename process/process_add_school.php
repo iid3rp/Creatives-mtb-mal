@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 // --- Form Submission Handling ---
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // 1. Retrieve data from POST superglobal
+    // 1. Retrieve data from POST super global
     //    Apply basic sanitization (trim whitespace)
     $schoolName    = trim($_POST['schoolName']);
     $shortName     = trim($_POST['shortName']);

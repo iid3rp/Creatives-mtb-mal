@@ -14,7 +14,8 @@ if ($conn->connect_error) {
 
 
 // Create database
-$sqldb = "CREATE DATABASE mtbmaldb";
+$conn->query("drop database mtbmaldb;");
+$sqldb = "CREATE DATABASE IF NOT EXISTS mtbmaldb;";
 if ($conn->query($sqldb) === TRUE)
     echo "Database created successfully.";
 else
