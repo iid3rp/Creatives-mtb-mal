@@ -85,7 +85,9 @@
             <button class="btn selected" id="btn-both">Display Both</button>
             <div class="search-wrapper">
                 <img src="images/search.png" alt="Search" class="search-icon">
-                <input type="text" class="search-box" placeholder="Search Template">
+                <label>
+                    <input type="text" class="search-box" placeholder="Search Template">
+                </label>
             </div>
         </div>
      </div>
@@ -202,7 +204,7 @@
                 <li>Once configured, click “Start Game” to preview and test your card pairs and timing.</li>
             </ol>
 
-                <div style="position: relative; padding-top: 0%; padding-bottom: 48%; height: 0; overflow: hidden; max-width: 90%; margin: 0 auto;">
+                <div style="position: relative; padding-top: 0; padding-bottom: 48%; height: 0; overflow: hidden; max-width: 90%; margin: 0 auto;">
                     <img src="images/instruction-flip.gif" alt="Instruction Flip Animation" style="width: 900px; height: auto; display: block; margin: 0 auto;">
                 </div>
 
