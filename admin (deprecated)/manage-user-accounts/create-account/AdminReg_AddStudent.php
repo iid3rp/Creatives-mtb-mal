@@ -13,9 +13,9 @@ Thank you for understanding.
     
 <head>
   <meta charset="UTF-8">
-  <title>Register Admin</title>
+  <title>Register Student</title>
     <link rel="icon" type="image/png" href="images/MTB-MAL_logo.png">
-    <link rel="stylesheet" href="style/AdminReg_AddAdminOnly-style.css">
+    <link rel="stylesheet" href="style/AdminReg_AddStudent-style.css">
 </head>
 
 <body>
@@ -83,46 +83,44 @@ Thank you for understanding.
 
   <!-- Form Container -->
   <div class="container">
-    <div class="form-header">Create an account for an Admin</div>
+    <div class="form-header">Create an account for a Student</div>
 
-    <form action="AdminReg_CheckAdminOnly.php" method="get" onsubmit="return validateForm()">
+    <form action="AdminReg_CheckStudent.php" method="get" onsubmit="return validateForm()">
 
       <!-- Form Section -->
       <div class="form-section">
 
         <!-- EDIT THE FORMS HERE -->
-
-        <!-- Column 1: Administrator Account -->
+        <!-- Column 1: Educator’s Profile -->
         <div class="column">
-
           <div class="section-header">
-            <div class="circle-number">2</div>
-            <h3>Administrator Account</h3>
+            <div class="circle-number">1</div>
+            <h3>Student’s Profile</h3>
           </div>
 
           <div class="form-group">
             <label>Full Name (Last, First M.I.)</label>
-            <input name="adminName" required placeholder="e.g., Doe, John A.">
+            <input name="studentFullName" type="text" placeholder="e.g. Doe, John A." required>
           </div>
 
           <div class="form-group">
-            <label>Employee ID</label>
-            <input name="adminID" type="text" placeholder="e.g., EMP12345" required>
+            <label>Date of Birth</label>
+            <input name="studentBirthDate" type="date" required>
           </div>
 
           <div class="form-group">
-            <label>School ID Number</label>
-            <input name="adminSchoolID" type="text" placeholder="e.g., 2021001234" required>
+            <label>School Identification Number</label>
+            <input name="schoolId" type="text" placeholder="e.g. 305601" required>
           </div>
 
           <div class="form-group">
-            <label>Email Address (Admin)</label>
-            <input name="adminEmail" type="email" placeholder="e.g., john.doe@school.edu" required>
+            <label>Learner Reference Number</label>
+            <input name="lrcIdNumber" type="text" placeholder="e.g. 1234567" required>
           </div>
 
           <div class="form-group">
-            <label>Contact Number (Admin)</label>
-            <input name="adminContact" type="tel" placeholder="e.g., 09123456789" required>
+            <label>Account Creation In-charge</label>
+            <input name="accountInCharge" type="text" placeholder="Administrator’s MTB-MAL Ref No (e.g. AD-251584520001)" required>
           </div>
 
           <div class="form-group">
@@ -140,10 +138,54 @@ Thank you for understanding.
             <input id="rePassword" name="rePassword" type="password" placeholder="Re-enter your password" required>
           </div>
 
-          <div class="form-group" id="formError" style="color: red;">
-            <!-- Error messages will be shown here -->
+        </div>
+
+        <!-- Column 2: Parent/Guardian Detail -->
+        <div class="column">
+          <div class="section-header">
+            <div class="circle-number">2</div>
+            <h3>Parent/Guardian Detail</h3>
           </div>
 
+          <div class="form-group">
+            <label>Full Name (Parent/Guardian)</label>
+            <input name="parentFullName" type="text" placeholder="e.g. Doe, Jane A." required>
+          </div>
+
+          <div class="form-group">
+            <label>Relationship to Student</label>
+            <select id="relationshipSelect" name="relationshipInput" onchange="relationshipStudent()" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="Mother">Mother</option>
+              <option value="Father">Father</option>
+              <option value="Guardian">Guardian</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Marital Status</label>
+            <input name="maritalStatus" type="text" placeholder="e.g. Married, Single, Widowed" required>
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input name="parentBirthDate" type="date" style="height: 16px;" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address (Parent/Guardian)</label>
+            <input name="parentEmail" type="email" placeholder="e.g., jane.doe@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label>Contact Number (Parent/Guardian)</label>
+            <input name="parentContact" type="tel" placeholder="e.g., 09123456789 or (02) 8123-4567" required>
+          </div>
+
+          <div class="form-group">
+            <label>Date of Account Creation</label>
+            <input name="dateOfAccount" type="date" style="height: 16px;" required>
+          </div>
 
         </div>
 
@@ -151,26 +193,25 @@ Thank you for understanding.
 
       <!-- Button Group Web -->
       <div class="button-group1">
-        <button type="reset" onclick="window.location.href='/mtbmalsysfinal/admin/users/add/add_school/AdminReg_AddSchool.php'" class="cancel-btn">Cancel</button>
+        <button type="reset" onclick="window.location.href='../../dashboard/dashboard_admin.php'" class="cancel-btn">Cancel</button>
         <button type="submit" class="submit-btn">Submit</button>
       </div>
 
       <!-- Button Group Responsive -->
       <div class="button-group2">
         <button type="submit" class="submit-btn">Submit</button>
-        <button type="reset" onclick="window.location.href='/mtbmalsysfinal/admin/users/add/add_school/AdminReg_AddSchool.php'" class="cancel-btn">Cancel</button>
+        <button type="reset" onclick="window.location.href='../../dashboard/dashboard_admin.php'" class="cancel-btn">Cancel</button>
       </div>
 
     </form>
   </div>
-</div>
 
-<!-- Footer -->
+  <!-- Footer -->
         <footer class="footer">
             Mother Tongue-Based Multilingual Assessment and Learning System © 2025
         </footer>
 
-  <!-- Dropdown and Options Script -->
+  <!-- Validation Script -->
     <script>
 
         function validateForm() {
@@ -197,9 +238,9 @@ Thank you for understanding.
             menu.classList.toggle('hidden');
         }
 
-        function setCurriculum() {
-            const select = document.getElementById('curriculumSelect');
-            const input = document.getElementById('curriculumInput');
+        function relationshipStudent() {
+            const select = document.getElementById('relationshipSelect');
+            const input = document.getElementById('relationshipInput');
             input.value = select.value;
         }
 

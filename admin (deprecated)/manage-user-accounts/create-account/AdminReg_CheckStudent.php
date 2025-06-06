@@ -93,7 +93,7 @@ Thank you for understanding.
                 <input type="text" readonly value="ST-251584520001" class="reference-input">
             </div>
 
-          <button type="button" onclick="window.location.href='/mtbmalsysfinal/admin/manage-user-accounts/main-manage/Admin_ManageUsers.php'" class="done-button">Done</button>
+          <button type="button" onclick="window.location.href='../../manage-user-accounts/main-manage/Admin_ManageUsers.php'" class="done-button">Done</button>
         </div>
 
         </div>

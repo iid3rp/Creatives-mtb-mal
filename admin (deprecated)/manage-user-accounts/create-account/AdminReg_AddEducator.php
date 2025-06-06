@@ -180,14 +180,14 @@ Thank you for understanding.
 
       <!-- Button Group Web -->
       <div class="button-group1">
-        <button type="reset" onclick="window.location.href='/mtbmalsysfinal/admin/dashboard/dashboard_admin.php'" class="cancel-btn">Cancel</button>
+        <button type="reset" onclick="window.location.href='../../dashboard/dashboard_admin.php'" class="cancel-btn">Cancel</button>
         <button type="submit" class="submit-btn">Submit</button>
       </div>
 
       <!-- Button Group Responsive -->
       <div class="button-group2">
         <button type="submit" class="submit-btn">Submit</button>
-        <button type="reset" onclick="window.location.href='/mtbmalsysfinal/admin/dashboard/dashboard_admin.php'" class="cancel-btn">Cancel</button>
+        <button type="reset" onclick="window.location.href='../../dashboard/dashboard_admin.php'" class="cancel-btn">Cancel</button>
       </div>
 
     </form>

@@ -2,60 +2,7 @@ drop database if exists mtbmaldb;
 create database if not exists mtbmaldb;
 use mtbmaldb;
 
-# assessment
-CREATE TABLE `assessment`
-(
-    `assessmentId` int(6) unsigned NOT NULL AUTO_INCREMENT,
-    `assessmentNo` int(2) unsigned NOT NULL,
-    `learningMaterialRefNo` int(10) unsigned NOT NULL,
-    `title` varchar(155) NOT NULL,
-    `description` text NOT NULL,
-    `instruction` text DEFAULT NULL,
-    `scoringRubric` text DEFAULT NULL,
-    `sample` text DEFAULT NULL,
-    `schoolIdNo` int(6) unsigned NOT NULL,
-    PRIMARY KEY (`assessmentId`),
-    KEY `schoolIdNo` (`schoolIdNo`),
-    KEY `learningMaterialRefNo` (`learningMaterialRefNo`),
-    CONSTRAINT `assessment_ibfk_1` FOREIGN KEY (`schoolIdNo`) REFERENCES `school` (`schoolIdNo`) ON DELETE CASCADE,
-    CONSTRAINT `assessment_ibfk_2` FOREIGN KEY (`learningMaterialRefNo`) REFERENCES `learningmaterial` (`learningMaterialRefNo`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-# assessment items
-CREATE TABLE `assessmentitems` (
-    `gameTempNo` int(3) unsigned NOT NULL AUTO_INCREMENT,
-    `tempRefNo` int(2) unsigned NOT NULL,
-    `assessmentId` int(6) unsigned NOT NULL,
-    `useby` int(10) unsigned DEFAULT NULL,
-    `assessmentNo` int(2) unsigned NOT NULL,
-    `itemNo` int(2) NOT NULL,
-    `iQuestion` text NOT NULL,
-    `correctAnswer` varchar(255) NOT NULL,
-    `uploadDateTime` timestamp NULL DEFAULT current_timestamp(),
-    PRIMARY KEY (`gameTempNo`),
-    KEY `tempRefNo` (`tempRefNo`),
-    KEY `assessmentId` (`assessmentId`),
-    KEY `useby` (`useby`),
-    CONSTRAINT `assessmentitems_ibfk_1` FOREIGN KEY (`tempRefNo`) REFERENCES `template` (`tempRefNo`),
-    CONSTRAINT `assessmentitems_ibfk_2` FOREIGN KEY (`assessmentId`) REFERENCES `assessment` (`assessmentId`) ON DELETE CASCADE,
-    CONSTRAINT `assessmentitems_ibfk_3` FOREIGN KEY (`useby`) REFERENCES `mtbmalusers` (`accRefNo`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-# educator
-CREATE TABLE `educator`
-(
-    `educatorNo` int(6) unsigned NOT NULL AUTO_INCREMENT,
-    `accRefNo` int(10) unsigned NOT NULL,
-    `schoolIdNo` int(6) unsigned NOT NULL,
-    `fullName` varchar(70) NOT NULL,
-    `edEmpIdNo` int(7) unsigned NOT NULL,
-    PRIMARY KEY (`educatorNo`),
-    UNIQUE KEY `edEmpIdNo` (`edEmpIdNo`),
-    KEY `accRefNo` (`accRefNo`),
-    KEY `schoolIdNo` (`schoolIdNo`),
-    CONSTRAINT `educator_ibfk_1` FOREIGN KEY (`accRefNo`) REFERENCES `mtbmalusers` (`accRefNo`),
-    CONSTRAINT `educator_ibfk_2` FOREIGN KEY (`schoolIdNo`) REFERENCES `school` (`schoolIdNo`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 # enrolled_students
 CREATE TABLE `enrolled_students` (

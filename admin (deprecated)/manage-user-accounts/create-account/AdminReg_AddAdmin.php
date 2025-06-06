@@ -123,14 +123,14 @@ Thank you for understanding.
 
     <!-- Button Group for Desktop -->
     <div class="button-group1">
-      <button type="reset" onclick="window.location.href='/mtbmalsysfinal/admin/users/add/add_school/AdminReg_AddSchool.php'" class="cancel-btn">Cancel</button>
+      <button type="reset" onclick="window.location.href='../../users/add/add_school/AdminReg_AddSchool.php'" class="cancel-btn">Cancel</button>
       <button type="submit" class="submit-btn">Submit</button>
     </div>
 
     <!-- Button Group for Responsive -->
     <div class="button-group2">
       <button type="submit" class="submit-btn">Submit</button>
-      <button type="reset" onclick="window.location.href='/mtbmalsysfinal/admin/users/add/add_school/AdminReg_AddSchool.php'" class="cancel-btn">Cancel</button>
+      <button type="reset" onclick="window.location.href='../../users/add/add_school/AdminReg_AddSchool.php'" class="cancel-btn">Cancel</button>
     </div>
 
   </form>

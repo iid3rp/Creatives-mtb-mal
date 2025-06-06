@@ -13,12 +13,15 @@ Thank you for understanding.
     
 <head>
   <meta charset="UTF-8">
-  <title>Registration Complete! </title>
+  <title>Register Admin</title>
     <link rel="icon" type="image/png" href="images/MTB-MAL_logo.png">
-    <link rel="stylesheet" href="style/AdminReg_AddAdminSchool-style.css">
+    <link rel="stylesheet" href="style/AdminReg_AddAdminOnly-style.css">
 </head>
 
 <body>
+
+<!-- Sidebar Toggle Button -->
+<button onclick="toggleSidebar()" class="toggle-btn" style="cursor: pointer;"></button>
 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar">
@@ -37,8 +40,7 @@ Thank you for understanding.
 <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <div class="main-content">
-
-    <!-- Top Bar -->
+        <!-- Top Bar -->
     <div class="topbar">
         <div class="left">
             <div class="logo-topbar" onclick="toggleSidebar()">
@@ -58,47 +60,109 @@ Thank you for understanding.
                 <div id="lang-dropdown-menu" class="lang-dropdown hidden">
                     <div class="dropdown-item">Feature Available Soon</div>
                 </div>
-            </div> <br>
-            <div class="profile-container">
-                <div class="profile-circle" onclick="toggleDropdown2()"></div>
+            </div> 
+        </div>
+    </div>
 
-                <div id="profile-dropdown-menu" class="profile-dropdown hidden">
-                    <div class="dropdown-item">Settings</div>
-                    <a href="/mtbmalsysfinal/auth/login.php">
-                        <div class="dropdown-item">Logout</div>
-                    </a>
-                </div>
+    <!-- Second Navigation Bar -->
+    <div class="second-bar">
+    <span>Create an Account for Another User</span>
+        <div class="profile-container" onclick="toggleDropdown2()">
+            <div class="profile-circle"></div>
+            <div id="dropdown-arrow2" class="dropdown-arrow2 down"></div>
+
+            <!-- Use a unique class or ID here -->
+            <div id="profile-dropdown-menu" class="profile-dropdown hidden">
+                <div class="dropdown-item">Settings</div>
+                <a href="/mtbmalsysfinal/auth/login.php">
+                  <div class="dropdown-item">Logout</div>
+                </a>
             </div>
         </div>
     </div>
 
   <!-- Form Container -->
   <div class="container">
+    <div class="form-header">Create an account for an Admin</div>
+
+    <form action="AdminReg_CheckAdminOnly.php" method="get" onsubmit="return validateForm()">
+
       <!-- Form Section -->
       <div class="form-section">
 
-        <!-- Column 1: Check -->
+        <!-- EDIT THE FORMS HERE -->
+
+        <!-- Column 1: Administrator Account -->
         <div class="column">
 
-          <div class="registration-box">
-            <div class="checkmark-image">
-                <img src="images/checkmark.png" alt="Checkmark">
-            </div>
+          <div class="section-header">
+            <div class="circle-number">2</div>
+            <h3>Administrator Account</h3>
+          </div>
 
-            <h2 class="registration-title">Registration Complete!</h2>
-            <p class="registration-subtitle">Please save the details below for future reference.</p>
+          <div class="form-group">
+            <label>Full Name (Last, First M.I.)</label>
+            <input name="adminName" required placeholder="e.g., Doe, John A.">
+          </div>
 
-            <div class="input-group">
-                <label class="label-text">School Administrator Reference Number:</label>
-                <input type="text" readonly value="AD-251584520001" class="reference-input">
-            </div>
+          <div class="form-group">
+            <label>Employee ID</label>
+            <input name="adminID" type="text" placeholder="e.g., EMP12345" required>
+          </div>
 
-          <button type="button" onclick="window.location.href='/mtbmalsysfinal/admin/manage-user-accounts/main-manage/Admin_ManageUsers.php'" class="done-button">Done</button>
+          <div class="form-group">
+            <label>School ID Number</label>
+            <input name="adminSchoolID" type="text" placeholder="e.g., 2021001234" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address (Admin)</label>
+            <input name="adminEmail" type="email" placeholder="e.g., john.doe@school.edu" required>
+          </div>
+
+          <div class="form-group">
+            <label>Contact Number (Admin)</label>
+            <input name="adminContact" type="tel" placeholder="e.g., 09123456789" required>
+          </div>
+
+          <div class="form-group">
+            <label>Username</label>
+            <input name="username" type="text" placeholder="Choose a username" required>
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input id="password" name="password" type="password" placeholder="Enter your password" required>
+          </div>
+
+          <div class="form-group">
+            <label>Re-enter Password</label>
+            <input id="rePassword" name="rePassword" type="password" placeholder="Re-enter your password" required>
+          </div>
+
+          <div class="form-group" id="formError" style="color: red;">
+            <!-- Error messages will be shown here -->
+          </div>
+
+
         </div>
 
-        </div>
       </div>
-    </div>
+
+      <!-- Button Group Web -->
+      <div class="button-group1">
+        <button type="reset" onclick="window.location.href='../../users/add/add_school/AdminReg_AddSchool.php'" class="cancel-btn">Cancel</button>
+        <button type="submit" class="submit-btn">Submit</button>
+      </div>
+
+      <!-- Button Group Responsive -->
+      <div class="button-group2">
+        <button type="submit" class="submit-btn">Submit</button>
+        <button type="reset" onclick="window.location.href='../../users/add/add_school/AdminReg_AddSchool.php'" class="cancel-btn">Cancel</button>
+      </div>
+
+    </form>
+  </div>
 </div>
 
 <!-- Footer -->
@@ -106,7 +170,6 @@ Thank you for understanding.
             Mother Tongue-Based Multilingual Assessment and Learning System © 2025
         </footer>
 
-        
   <!-- Dropdown and Options Script -->
     <script>
 

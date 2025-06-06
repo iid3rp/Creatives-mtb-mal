@@ -101,7 +101,7 @@
         </div>
 
         <!-- Done Button -->
-        <button type="button" onclick="window.location.href='/mtbmalsysfinal/admin/dashboard/dashboard_admin.php'" class="done-button">
+        <button type="button" onclick="window.location.href='../dashboard/dashboard_admin.php'" class="done-button">
           Done
         </button>
 

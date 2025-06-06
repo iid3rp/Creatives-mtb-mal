@@ -87,7 +87,7 @@
         </div>
 
         <!-- Card: Manage Existing Accounts -->
-        <div class="user-card" onclick="location.href='/mtbmalsysfinal/admin/manage-user-accounts/manage-account/AdminManage.php';">
+        <div class="user-card" onclick="location.href='../../manage-user-accounts/manage-account/AdminManage.php';">
             <div class="card-icon">✏️</div>
             <div class="card-text">Manage registered user accounts</div>
         </div>

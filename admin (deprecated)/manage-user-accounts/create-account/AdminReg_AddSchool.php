@@ -13,7 +13,7 @@ Thank you for understanding.
     
 <head>
   <meta charset="UTF-8">
-  <title>Registration Complete! </title>
+  <title>Register School</title>
     <link rel="icon" type="image/png" href="images/MTB-MAL_logo.png">
     <link rel="stylesheet" href="style/AdminReg_AddAdminSchool-style.css">
 </head>
@@ -57,36 +57,89 @@ Thank you for understanding.
 
   <!-- Form Container -->
   <div class="container">
+    <div class="form-header">Sign up for MTB-MAL</div>
+
+    <form action="AdminReg_AddAdmin.php" method="get" onsubmit="return validateForm()">
+
       <!-- Form Section -->
       <div class="form-section">
 
-        <!-- Column 1: Check -->
+        <!-- EDIT THE FORMS HERE -->
+        <!-- Column 1: School Profile -->
         <div class="column">
 
-          <div class="registration-box">
-            <div class="checkmark-image">
-                <img src="images/checkmark.png" alt="Checkmark">
-            </div>
+          <div class="section-header">
+            <div class="circle-number">1</div>
+            <h3>School Profile</h3>
+          </div>
 
-            <h2 class="registration-title">Registration Complete!</h2>
-            <p class="registration-subtitle">Please save the details below for future reference.</p>
+          <div class="form-group">
+            <label>School Name</label>
+            <input name="schoolName" type="text" placeholder="e.g., ABC National High School" required>
+          </div>    
 
-            <div class="input-group">
-                <label class="label-text">School Reference Number:</label>
-                <input type="text" readonly value="SH-202501158452" class="reference-input">
-            </div>
+          <div class="form-group">
+            <label>Short Name</label>
+            <input name="shortName" type="text" placeholder="e.g., ABC NHS" required>
+          </div>
 
-            <div class="input-group">
-                <label class="label-text">School Administrator Reference Number:</label>
-                <input type="text" readonly value="AD-251584520001" class="reference-input">
-            </div>
+          <div class="form-group">
+            <label>School ID Number</label>
+            <input name="schoolID" type="text" placeholder="e.g., 305432" required>
+          </div>
 
-          <button type="button" onclick="window.location.href='/mtbmalsysfinal/admin/dashboard/dashboard_admin.php'" class="done-button">Done</button>
-        </div>
+          <div class="form-group">
+            <label>Email Address (School)</label>
+            <input name="schoolEmail" type="email" placeholder="e.g., abcnhs@school.edu" required>
+          </div>
+
+          <div class="form-group">
+            <label>Contact Number (School)</label>
+            <input name="schoolContact" type="tel" placeholder="e.g., 09123456789 or (02) 8123-4567" required>
+          </div>
+
+          <div class="form-group">
+            <label>Curricular Offering</label>
+            <select id="curriculumSelect" name="curriculumOffering" onchange="setCurriculum()" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="Public">Public</option>
+              <option value="Private">Private</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>School Classification</label>
+            <input name="schoolClass" type="text" placeholder="e.g., Junior High School, Senior High School" required>
+          </div>
+
+          <div class="form-group">
+            <label>Location Address</label>
+            <input name="address" type="text" placeholder="Street, District, City, Province" required>
+          </div>
+
+          <div class="form-group">
+            <label>Region</label>
+            <input name="region" type="text" placeholder="e.g., Region IV-A" required>
+          </div>
+
 
         </div>
       </div>
-    </div>
+
+      <!-- Button Group Web -->
+      <div class="button-group1">
+        <button type="reset" onclick="window.location.href='../../dashboard/dashboard_admin.php'" class="cancel-btn">Cancel</button>
+        <button type="submit" class="submit-btn">Submit</button>
+      </div>
+
+      <!-- Button Group Responsive -->
+      <div class="button-group2">
+        <button type="submit" class="submit-btn">Submit</button>
+        <button type="reset" onclick="window.location.href='../../dashboard/dashboard_admin.php'" class="cancel-btn">Cancel</button>
+      </div>
+
+    </form>
+  </div>
 </div>
 
 <!-- Footer -->
@@ -94,7 +147,6 @@ Thank you for understanding.
             Mother Tongue-Based Multilingual Assessment and Learning System © 2025
         </footer>
 
-        
   <!-- Dropdown and Options Script -->
     <script>
 

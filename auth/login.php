@@ -93,7 +93,7 @@
         // Redirect based on role
         switch (role) {
             case "admin":
-                window.location.href = "/mtbmalsysfinal/admin/dashboard/dashboard_admin.php";
+                window.location.href = "../admin (deprecated)/dashboard/dashboard_admin.php";
                 break;
             case "educator":
                 window.location.href = "/mtbmalsysfinal/educators/dashboard/dashboard_educators.php";
@@ -130,7 +130,7 @@
     }
 
     // If everything is valid, redirect
-    window.location.href = "/mtbmalsysfinal/admin/manage-user-accounts/create-account/AdminReg_AddAdmin.php";
+    window.location.href = "../admin (deprecated)/manage-user-accounts/create-account/AdminReg_AddAdmin.php";
 
 }
   </script>
