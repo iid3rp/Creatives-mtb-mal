@@ -18,7 +18,7 @@ echo "Connected successfully to database.<br><br>";
 function displayResults($result, $title = "Query Results") {
     echo "<h3>" . htmlspecialchars($title) . "</h3>";
     if ($result && $result->num_rows > 0) {
-        echo "<table border='1' style='border-collapse: collapse; margin-bottom: 20px;'>";
+        echo "<table style='border-collapse: collapse; margin-bottom: 20px;'>";
         // Table header
         echo "<tr>";
         $fields = $result->fetch_fields();
@@ -87,7 +87,7 @@ function querySchoolSubjects($conn, $schoolIdNo) {
     // This query is more complex as it needs counts and concatenated names.
     // For enrolled students count, we'll do a subquery.
     $sql = "SELECT 
-                s.subjectRefNo, s.subjectId, s.subjTitle, s.mtLanguage,
+                s.subjectRefNo, s.subjectIdno, s.subjTitle, s.mtLanguage,
                 edu.fullName AS assignedEducatorName, edu_user.username AS assignedEducatorUsername,
                 creator_user.username AS creatorAdminUsername,
                 (SELECT COUNT(*) FROM enrolled_students es WHERE es.subjectRefNo = s.subjectRefNo AND es.status = 'Enrolled') AS enrolledStudentCount
@@ -111,7 +111,7 @@ function querySchoolSubjects($conn, $schoolIdNo) {
  * $educatorAccRefNo is the accRefNo of the educator.
  */
 function querySubjectsByEducator($conn, $educatorAccRefNo) {
-    $sql = "SELECT s.subjectRefNo, s.subjectId, s.subjTitle, s.mtLanguage
+    $sql = "SELECT s.subjectRefNo, s.subjectIdno, s.subjTitle, s.mtLanguage
             FROM subject s
             WHERE s.assignedEducator = ?
             ORDER BY s.subjTitle";
@@ -352,7 +352,7 @@ function queryStudentsByLRNPrefix($conn, $schoolIdNo, $lrnPrefix = '15') {
     $sql = "SELECT u.firstName, u.lastName, s.lrn, s.fullName, school.schoolName
             FROM student s
             JOIN mtbmalusers u ON s.accRefNo = u.accRefNo
-            JOIN school `school` ON s.schoolIdNo = school.schoolIdNo
+            JOIN school ON s.schoolIdNo = school.schoolIdNo
             WHERE s.schoolIdNo = ? AND CAST(s.lrn AS CHAR) LIKE CONCAT(?, '%')
             ORDER BY s.lrn";
     $stmt = $conn->prepare($sql);

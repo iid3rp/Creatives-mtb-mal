@@ -121,7 +121,7 @@ function addStudent($conn, $accRefNo, $schoolIdNo, $lrn, $fullName, $parentGuard
 
 function addSubject($conn, $subjectId, $subjTitle, $subjDescription, $mtLanguage, $adminCreatorAccRefNo, $assignedEducatorAccRefNo, $schoolIdNo) {
     $assignedEducatorParam = $assignedEducatorAccRefNo ?: NULL;
-    $sql = "INSERT INTO subject (subjectId, subjTitle, subjDescription, mtLanguage, adminCreator, assignedEducator, schoolIdNo)
+    $sql = "INSERT INTO subject (subjectIdno, subjTitle, subjDescription, mtLanguage, adminCreator, assignedEducator, schoolIdNo)
             VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
